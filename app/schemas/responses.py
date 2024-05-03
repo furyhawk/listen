@@ -16,3 +16,9 @@ class AccessTokenResponse(BaseResponse):
 class UserResponse(BaseResponse):
     user_id: str
     email: EmailStr
+
+
+class PetResponse(BaseResponse):
+    id: int
+    pet_name: str
+    user_id: str
