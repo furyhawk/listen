@@ -22,3 +22,7 @@ class PetResponse(BaseResponse):
     id: int
     pet_name: str
     user_id: str
+
+class TemperatureResponse(BaseResponse):
+    id: int
+    temperature: str

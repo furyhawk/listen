@@ -21,3 +21,6 @@ class UserCreateRequest(BaseRequest):
 
 class PetCreateRequest(BaseRequest):
     pet_name: str
+
+class TemperatureCreateRequest(BaseRequest):
+    temperature: str

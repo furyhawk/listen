@@ -65,3 +65,10 @@ class Pet(Base):
         ForeignKey("user_account.user_id", ondelete="CASCADE"),
     )
     pet_name: Mapped[str] = mapped_column(String(50), nullable=False)
+
+class Temperature(Base):
+    __tablename__ = "temperature"
+
+    id: Mapped[int] = mapped_column(BigInteger, primary_key=True)
+
+    temperature: Mapped[float] = mapped_column(String(10), nullable=False)

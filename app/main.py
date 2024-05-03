@@ -6,9 +6,9 @@ from app.api.api_router import api_router, auth_router
 from app.core.config import get_settings
 
 app = FastAPI(
-    title="minimal fastapi postgres template",
+    title="minimal fastapi postgres",
     version="6.0.0",
-    description="https://github.com/rafsaf/minimal-fastapi-postgres-template",
+    description="https://github.com/furyhawk/minimal-fastapi-postgres-template",
     openapi_url="/openapi.json",
     docs_url="/",
 )
