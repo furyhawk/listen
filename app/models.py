@@ -66,9 +66,23 @@ class Pet(Base):
     )
     pet_name: Mapped[str] = mapped_column(String(50), nullable=False)
 
+
 class Temperature(Base):
     __tablename__ = "temperature"
 
     id: Mapped[int] = mapped_column(BigInteger, primary_key=True)
-
     temperature: Mapped[float] = mapped_column(String(10), nullable=False)
+
+
+class Humidity(Base):
+    __tablename__ = "humidity"
+
+    id: Mapped[int] = mapped_column(BigInteger, primary_key=True)
+    humidity: Mapped[float] = mapped_column(String(6), nullable=False)
+
+
+class Pressure(Base):
+    __tablename__ = "pressure"
+
+    id: Mapped[int] = mapped_column(BigInteger, primary_key=True)
+    pressure: Mapped[float] = mapped_column(String(10), nullable=False)

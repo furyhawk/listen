@@ -26,3 +26,11 @@ class PetResponse(BaseResponse):
 class TemperatureResponse(BaseResponse):
     id: int
     temperature: str
+
+class HumidityResponse(BaseResponse):
+    id: int
+    humidity: str
+
+class PressureResponse(BaseResponse):
+    id: int
+    pressure: str

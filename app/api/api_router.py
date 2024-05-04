@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 
 from app.api import api_messages
-from app.api.endpoints import auth, pets, temperature, users
+from app.api.endpoints import auth, pets, humidity, pressure, temperature, users
 
 auth_router = APIRouter()
 auth_router.include_router(auth.router, prefix="/auth", tags=["auth"])
@@ -33,6 +33,8 @@ api_router = APIRouter(
 )
 api_router.include_router(users.router, prefix="/users", tags=["users"])
 api_router.include_router(pets.router, prefix="/pets", tags=["pets"])
+api_router.include_router(humidity.router, prefix="/humidity", tags=["humidity"])
+api_router.include_router(pressure.router, prefix="/pressure", tags=["pressure"])
 api_router.include_router(
     temperature.router, prefix="/temperature", tags=["temperature"]
 )
