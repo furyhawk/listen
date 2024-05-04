@@ -1,11 +1,10 @@
-from typing import Any
 from fastapi import APIRouter, Depends, status
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.api import deps
 from app.models import Temperature
-from app.schemas.requests import TemperatureCreateRequest
+from app.schemas.requests import MqttCreateRequest
 from app.schemas.responses import TemperatureResponse
 
 
@@ -19,10 +18,10 @@ router = APIRouter()
     description="Create new temperature.",
 )
 async def create_temperature(
-    data: TemperatureCreateRequest,
+    data: MqttCreateRequest,
     session: AsyncSession = Depends(deps.get_session),
 ) -> Temperature:
-    new_temperature = Temperature(temperature=data.temperature)
+    new_temperature = Temperature(temperature=data.payload)
     session.add(new_temperature)
     await session.commit()
     return new_temperature

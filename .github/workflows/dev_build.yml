@@ -33,4 +33,4 @@ jobs:
         with:
           file: Dockerfile
           push: true
-          tags: rafsaf/minimal-fastapi-postgres-template:${{ env.IMAGE_TAG }}
+          tags: furyhawk/minimal-fastapi-postgres-template:${{ env.IMAGE_TAG }}
