@@ -21,7 +21,7 @@ async def create_pressure(
     data: MqttCreateRequest,
     session: AsyncSession = Depends(deps.get_session),
 ) -> Pressure:
-    new_pressure = Pressure(humidity=data.payload)
+    new_pressure = Pressure(pressure=data.payload)
     session.add(new_pressure)
     await session.commit()
     return new_pressure
