@@ -2,7 +2,7 @@ name: dev-build
 on:
   workflow_run:
     workflows: ["tests"]
-    branches: [main]
+    branches: ["release/*"]
     types:
       - completed
 
@@ -12,14 +12,6 @@ on:
         description: "Docker image tag"
         required: true
         default: "latest"
-  push:
-    branches:
-      - "main"
-    tags:
-      - "v*"
-  pull_request:
-    branches:
-      - "main"
 
 env:
   REGISTRY_IMAGE: furyhawk/listen
@@ -30,8 +22,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      -
-        name: Docker meta
+      - name: Docker meta
         id: meta
         uses: docker/metadata-action@v5
         with:
