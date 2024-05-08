@@ -1,3 +1,4 @@
+from datetime import datetime
 from pydantic import BaseModel, ConfigDict, EmailStr
 
 
@@ -23,14 +24,20 @@ class PetResponse(BaseResponse):
     pet_name: str
     user_id: str
 
+
 class TemperatureResponse(BaseResponse):
     id: int
     temperature: str
+    update_time: datetime
+
 
 class HumidityResponse(BaseResponse):
     id: int
     humidity: str
+    update_time: datetime
+
 
 class PressureResponse(BaseResponse):
     id: int
     pressure: str
+    update_time: datetime
