@@ -17,7 +17,7 @@ router = APIRouter()
     status_code=status.HTTP_201_CREATED,
     description="Create new temperature.",
 )
-async def create_temperature(
+async def create_new_temperature(
     data: MqttCreateRequest,
     session: AsyncSession = Depends(deps.get_session),
 ) -> Temperature:

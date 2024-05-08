@@ -17,7 +17,7 @@ router = APIRouter()
     status_code=status.HTTP_201_CREATED,
     description="Create new humidity.",
 )
-async def create_humidity(
+async def create_new_humidity(
     data: MqttCreateRequest,
     session: AsyncSession = Depends(deps.get_session),
 ) -> Humidity:

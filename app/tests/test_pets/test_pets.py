@@ -52,4 +52,3 @@ async def test_get_all_my_pets(
             "id": pet2.id,
         },
     ]
-

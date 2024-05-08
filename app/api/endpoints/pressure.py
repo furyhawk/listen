@@ -17,7 +17,7 @@ router = APIRouter()
     status_code=status.HTTP_201_CREATED,
     description="Create new pressure.",
 )
-async def create_pressure(
+async def create_new_pressure(
     data: MqttCreateRequest,
     session: AsyncSession = Depends(deps.get_session),
 ) -> Pressure:
