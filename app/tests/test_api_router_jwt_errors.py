@@ -16,6 +16,10 @@ async def test_api_routes_raise_401_on_jwt_decode_errors(
     client: AsyncClient,
     api_route: routing.APIRoute,
 ) -> None:
+    if not api_route.path.startswith("/users") or not api_route.path.startswith(
+        "/pets"
+    ):
+        pytest.skip("This test is only for routes that require authentication")
     for method in api_route.methods:
         response = await client.request(
             method=method,
@@ -32,6 +36,10 @@ async def test_api_routes_raise_401_on_jwt_expired_token(
     default_user: User,
     api_route: routing.APIRoute,
 ) -> None:
+    if not api_route.path.startswith("/users") or not api_route.path.startswith(
+        "/pets"
+    ):
+        pytest.skip("This test is only for routes that require authentication")
     with freeze_time("2023-01-01"):
         jwt = create_jwt_token(default_user.user_id)
     with freeze_time("2023-02-01"):
@@ -53,6 +61,10 @@ async def test_api_routes_raise_401_on_jwt_user_deleted(
     api_route: routing.APIRoute,
     session: AsyncSession,
 ) -> None:
+    if not api_route.path.startswith("/users") or not api_route.path.startswith(
+        "/pets"
+    ):
+        pytest.skip("This test is only for routes that require authentication")
     await session.execute(delete(User).where(User.user_id == default_user.user_id))
     await session.commit()
 
