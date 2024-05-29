@@ -34,7 +34,7 @@ class Security(BaseModel):
         "localhost",
         "127.0.0.1",
         "101.100.172.55",
-        "furyhawk.lol",
+        ".furyhawk.lol",
     ]
     backend_cors_origins: list[AnyHttpUrl] = []
 
