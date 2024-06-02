@@ -1,3 +1,5 @@
+from typing import Any
+
 from pydantic import BaseModel, EmailStr
 
 
@@ -25,7 +27,7 @@ class PetCreateRequest(BaseRequest):
 
 class MqttCreateRequest(BaseRequest):
     publish_received_at: int
-    pub_props: dict
+    pub_props: dict[str, Any]
     peerhost: str
     qos: int
     topic: str
@@ -33,11 +35,11 @@ class MqttCreateRequest(BaseRequest):
     payload: str
     username: str
     event: str
-    metadata: dict
+    metadata: dict[str, Any]
     timestamp: int
     node: str
     id: str
-    flags: dict
+    flags: dict[str, Any]
 
 
 # {
