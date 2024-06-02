@@ -7,7 +7,6 @@ from app.models import Humidity
 from app.schemas.requests import MqttCreateRequest
 from app.schemas.responses import HumidityResponse
 
-
 router = APIRouter()
 
 

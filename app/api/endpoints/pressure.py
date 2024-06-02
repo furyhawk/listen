@@ -7,7 +7,6 @@ from app.models import Pressure
 from app.schemas.requests import MqttCreateRequest
 from app.schemas.responses import PressureResponse
 
-
 router = APIRouter()
 
 

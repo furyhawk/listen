@@ -3,7 +3,7 @@ from httpx import AsyncClient
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.main import app
-from app.models import Temperature, Pressure, Humidity
+from app.models import Humidity, Pressure, Temperature
 
 
 async def test_create_new_temperature(client: AsyncClient) -> None:

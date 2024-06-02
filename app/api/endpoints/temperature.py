@@ -7,7 +7,6 @@ from app.models import Temperature
 from app.schemas.requests import MqttCreateRequest
 from app.schemas.responses import TemperatureResponse
 
-
 router = APIRouter()
 
 
