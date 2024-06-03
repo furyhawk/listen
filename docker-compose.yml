@@ -5,19 +5,36 @@
 #
 
 services:
-  postgres_db:
-    restart: unless-stopped
-    image: postgres:16
-    volumes:
-      - postgres_db:/var/lib/postgresql/data
+  api_server:
+    image: furyhawk/listen:latest
+    restart: always
+    # depends_on:
+    #   - postgres_db
     environment:
-      - POSTGRES_DB=${DATABASE__DB}
-      - POSTGRES_USER=${DATABASE__USERNAME}
-      - POSTGRES_PASSWORD=${DATABASE__PASSWORD}
-    env_file:
-      - .env
+      DATABASE__HOSTNAME: ${DATABASE__HOSTNAME}
+      DATABASE__USERNAME: ${DATABASE__USERNAME}
+      DATABASE__PASSWORD: ${DATABASE__PASSWORD}
+      DATABASE__PORT: ${DATABASE__PORT}
+      DATABASE__DB: ${DATABASE__DB}
+      SECURITY__JWT_SECRET_KEY: ${SECURITY__JWT_SECRET_KEY}
+      SECURITY__BACKEND_CORS_ORIGINS: ${SECURITY__BACKEND_CORS_ORIGINS}
+      SECURITY__ALLOWED_HOSTS: ${SECURITY__ALLOWED_HOSTS}
     ports:
-      - "${DATABASE__PORT}:5432"
+      - "8000:8000"
 
-volumes:
-  postgres_db:
+  # postgres_db:
+  #   restart: unless-stopped
+  #   image: postgres:16
+  #   volumes:
+  #     - postgres_db:/var/lib/postgresql/data
+  #   environment:
+  #     - POSTGRES_DB=${DATABASE__DB}
+  #     - POSTGRES_USER=${DATABASE__USERNAME}
+  #     - POSTGRES_PASSWORD=${DATABASE__PASSWORD}
+  #   env_file:
+  #     - .env
+  #   ports:
+  #     - "${DATABASE__PORT}:5432"
+
+# volumes:
+#   postgres_db:
