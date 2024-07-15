@@ -229,6 +229,7 @@ async def test_refresh_token_success_refresh_token_has_valid_expire_time(
     session.add(test_refresh_token)
     await session.commit()
 
+    current_time = int(time.time())
     response = await client.post(
         app.url_path_for("refresh_token"),
         json={
@@ -237,7 +238,6 @@ async def test_refresh_token_success_refresh_token_has_valid_expire_time(
     )
 
     token = response.json()
-    current_time = int(time.time())
     assert (
         token["refresh_token_expires_at"]
         == current_time + get_settings().security.refresh_token_expire_secs
