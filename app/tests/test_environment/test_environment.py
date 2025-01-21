@@ -1,3 +1,4 @@
+import pytest
 from fastapi import status
 from httpx import AsyncClient
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -6,6 +7,7 @@ from app.main import app
 from app.models import Humidity, Pressure, Temperature
 
 
+@pytest.mark.asyncio(loop_scope="session")
 async def test_create_new_temperature(client: AsyncClient) -> None:
     response = await client.post(
         app.url_path_for("create_new_temperature"),
@@ -32,6 +34,7 @@ async def test_create_new_temperature(client: AsyncClient) -> None:
     assert result["temperature"] == "25.0"
 
 
+@pytest.mark.asyncio(loop_scope="session")
 async def test_get_temperature(
     client: AsyncClient,
     session: AsyncSession,
@@ -62,6 +65,7 @@ async def test_get_temperature(
     ]
 
 
+@pytest.mark.asyncio(loop_scope="session")
 async def test_create_new_pressure(client: AsyncClient) -> None:
     response = await client.post(
         app.url_path_for("create_new_pressure"),
@@ -88,6 +92,7 @@ async def test_create_new_pressure(client: AsyncClient) -> None:
     assert result["pressure"] == "1000.0"
 
 
+@pytest.mark.asyncio(loop_scope="session")
 async def test_get_pressure(
     client: AsyncClient,
     session: AsyncSession,
@@ -118,6 +123,7 @@ async def test_get_pressure(
     ]
 
 
+@pytest.mark.asyncio(loop_scope="session")
 async def test_create_new_humidity(client: AsyncClient) -> None:
     response = await client.post(
         app.url_path_for("create_new_humidity"),
@@ -144,6 +150,7 @@ async def test_create_new_humidity(client: AsyncClient) -> None:
     assert result["humidity"] == "77.0"
 
 
+@pytest.mark.asyncio(loop_scope="session")
 async def test_get_humidity(
     client: AsyncClient,
     session: AsyncSession,

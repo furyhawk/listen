@@ -1,3 +1,4 @@
+import pytest
 from fastapi import status
 from httpx import AsyncClient
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -6,6 +7,7 @@ from app.main import app
 from app.models import Pet, User
 
 
+@pytest.mark.asyncio(loop_scope="session")
 async def test_create_new_pet(
     client: AsyncClient, default_user_headers: dict[str, str], default_user: User
 ) -> None:
@@ -21,6 +23,7 @@ async def test_create_new_pet(
     assert result["pet_name"] == "Tadeusz"
 
 
+@pytest.mark.asyncio(loop_scope="session")
 async def test_get_all_my_pets(
     client: AsyncClient,
     default_user_headers: dict[str, str],
