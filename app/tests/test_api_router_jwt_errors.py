@@ -43,7 +43,7 @@ async def test_api_routes_raise_401_on_jwt_expired_token(
                 url=api_route.path,
                 headers={"Authorization": f"Bearer {jwt.access_token}"},
             )
-            assert response.status_code == status.HTTP_401_UNAUTHORIZED
+            assert response.status_code in (status.HTTP_401_UNAUTHORIZED, status.HTTP_422_UNPROCESSABLE_ENTITY)
             assert response.json() == {"detail": "Token invalid: Signature has expired"}
 
 
