@@ -7,7 +7,7 @@ from app.core.config import get_settings
 
 app = FastAPI(
     title="minimal fastapi postgres",
-    version="6.0.0",
+    version="6.1.0",
     description="https://github.com/furyhawk/minimal-fastapi-postgres-template",
     openapi_url="/openapi.json",
     docs_url="/",
