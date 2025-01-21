@@ -1,5 +1,5 @@
 import pytest
-from fastapi import APIRoute, routing, status
+from fastapi import APIRouter, routing, status
 from freezegun import freeze_time
 from httpx import AsyncClient
 from sqlalchemy import delete
@@ -13,7 +13,7 @@ from app.models import User
 authorized_routes = [
     route
     for route in api_router.routes
-    if isinstance(route, APIRoute) and route.tags and "users" in route.tags
+    if isinstance(route, APIRouter) and route.tags and "users" in route.tags
 ]
 
 
