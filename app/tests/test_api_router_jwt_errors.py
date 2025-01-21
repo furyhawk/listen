@@ -1,5 +1,5 @@
 import pytest
-from fastapi import routing, status
+from fastapi import APIRoute, routing, status
 from freezegun import freeze_time
 from httpx import AsyncClient
 from sqlalchemy import delete
@@ -10,7 +10,11 @@ from app.api.api_router import api_router
 from app.core.security.jwt import create_jwt_token
 from app.models import User
 
-authorized_routes = [route for route in api_router.routes if "users" in route.tags]
+authorized_routes = [
+    route
+    for route in api_router.routes
+    if isinstance(route, APIRoute) and route.tags and "users" in route.tags
+]
 
 
 @pytest.mark.asyncio(loop_scope="session")
