@@ -1,6 +1,6 @@
-import asyncio
+import logging
 import os
-from collections.abc import AsyncGenerator, Generator
+from collections.abc import AsyncGenerator
 
 import pytest
 import pytest_asyncio
@@ -102,6 +102,7 @@ async def fixture_session_with_rollback(
 
     yield session
 
+    logging.critical("Rolling back transaction")
     await session.close()
     await transaction.rollback()
     await connection.close()
@@ -118,7 +119,7 @@ async def fixture_client(session: AsyncSession) -> AsyncGenerator[AsyncClient]:
 @pytest_asyncio.fixture(name="default_user", scope="function")
 async def fixture_default_user(
     session: AsyncSession, default_hashed_password: str
-) -> User:
+) -> AsyncGenerator[User]:
     default_user = User(
         user_id=default_user_id,
         email=default_user_email,
@@ -127,9 +128,10 @@ async def fixture_default_user(
     session.add(default_user)
     await session.commit()
     await session.refresh(default_user)
-    return default_user
+
+    yield default_user
 
 
-@pytest.fixture(name="default_user_headers", scope="function")
+@pytest_asyncio.fixture(name="default_user_headers", scope="function")
 def fixture_default_user_headers(default_user: User) -> dict[str, str]:
     return {"Authorization": f"Bearer {default_user_access_token}"}
