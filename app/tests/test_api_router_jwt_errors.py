@@ -10,7 +10,6 @@ from app.api.api_router import api_router
 from app.core.security.jwt import create_jwt_token
 from app.models import User
 
-
 authorized_routes = [route for route in api_router.routes if "users" in route.tags]
 
 
