@@ -1,4 +1,6 @@
-from fastapi import APIRouter, Depends, status
+from datetime import datetime
+
+from fastapi import APIRouter, Depends, Query, status
 from sqlalchemy import ScalarResult, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -27,15 +29,24 @@ async def create_new_pressure(
 
 
 @router.get(
-    "/all",
+    "/search",
     response_model=list[PressureResponse],
     status_code=status.HTTP_200_OK,
-    description="Get pressure of the city.",
+    description="Search pressure readings with optional date range and limit.",
 )
-async def get_pressure(
+async def search_pressure(
     session: AsyncSession = Depends(deps.get_session),
+    limit: int = Query(100, ge=1, le=1000),
+    start_date: datetime | None = Query(None, description="Filter readings from this date (ISO 8601)"),
+    end_date: datetime | None = Query(None, description="Filter readings until this date (ISO 8601)"),
 ) -> list[Pressure]:
-    pressure_list: ScalarResult[Pressure] = await session.scalars(
-        select(Pressure).order_by(Pressure.create_time.desc())
-    )
+    query = select(Pressure)
+    
+    if start_date:
+        query = query.where(Pressure.create_time >= start_date)
+    if end_date:
+        query = query.where(Pressure.create_time <= end_date)
+    
+    query = query.order_by(Pressure.create_time.desc()).limit(limit)
+    pressure_list: ScalarResult[Pressure] = await session.scalars(query)
     return list(pressure_list.all())

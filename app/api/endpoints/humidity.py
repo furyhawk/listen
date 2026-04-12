@@ -1,4 +1,6 @@
-from fastapi import APIRouter, Depends, status
+from datetime import datetime
+
+from fastapi import APIRouter, Depends, Query, status
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -27,15 +29,24 @@ async def create_new_humidity(
 
 
 @router.get(
-    "/all",
+    "/search",
     response_model=list[HumidityResponse],
     status_code=status.HTTP_200_OK,
-    description="Get humidity of the city.",
+    description="Search humidity readings with optional date range and limit.",
 )
-async def get_humidity(
+async def search_humidity(
     session: AsyncSession = Depends(deps.get_session),
+    limit: int = Query(100, ge=1, le=1000),
+    start_date: datetime | None = Query(None, description="Filter readings from this date (ISO 8601)"),
+    end_date: datetime | None = Query(None, description="Filter readings until this date (ISO 8601)"),
 ) -> list[Humidity]:
-    humidity_list = await session.scalars(
-        select(Humidity).order_by(Humidity.create_time.desc())
-    )
+    query = select(Humidity)
+    
+    if start_date:
+        query = query.where(Humidity.create_time >= start_date)
+    if end_date:
+        query = query.where(Humidity.create_time <= end_date)
+    
+    query = query.order_by(Humidity.create_time.desc()).limit(limit)
+    humidity_list = await session.scalars(query)
     return list(humidity_list.all())
