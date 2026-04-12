@@ -1,12 +1,14 @@
-import pytest
 from datetime import datetime, timedelta
 
+import pytest
 from fastapi import status
 from httpx import AsyncClient
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.main import app
 from app.models import Humidity, Pressure, Temperature
+
+MIN_EXPECTED_RESULTS = 2
 
 
 @pytest.mark.asyncio(loop_scope="session")
@@ -52,7 +54,7 @@ async def test_search_temperature(
         app.url_path_for("search_temperature"),
     )
     assert response.status_code == status.HTTP_200_OK
-    assert len(response.json()) >= 2
+    assert len(response.json()) >= MIN_EXPECTED_RESULTS
 
 
 @pytest.mark.asyncio(loop_scope="session")
@@ -62,7 +64,7 @@ async def test_search_temperature_with_limit(
 ) -> None:
     response = await client.get(
         app.url_path_for("search_temperature"),
-        params={"limit": 1}
+        params={"limit": 1},
     )
     assert response.status_code == status.HTTP_200_OK
     assert len(response.json()) <= 1
@@ -76,10 +78,10 @@ async def test_search_temperature_with_date_range(
     now = datetime.utcnow()
     start_date = (now - timedelta(days=1)).isoformat() + "Z"
     end_date = (now + timedelta(days=1)).isoformat() + "Z"
-    
+
     response = await client.get(
         app.url_path_for("search_temperature"),
-        params={"start_date": start_date, "end_date": end_date}
+        params={"start_date": start_date, "end_date": end_date},
     )
     assert response.status_code == status.HTTP_200_OK
     assert isinstance(response.json(), list)
@@ -128,7 +130,7 @@ async def test_search_pressure(
         app.url_path_for("search_pressure"),
     )
     assert response.status_code == status.HTTP_200_OK
-    assert len(response.json()) >= 2
+    assert len(response.json()) >= MIN_EXPECTED_RESULTS
 
 
 @pytest.mark.asyncio(loop_scope="session")
@@ -138,7 +140,7 @@ async def test_search_pressure_with_limit(
 ) -> None:
     response = await client.get(
         app.url_path_for("search_pressure"),
-        params={"limit": 1}
+        params={"limit": 1},
     )
     assert response.status_code == status.HTTP_200_OK
     assert len(response.json()) <= 1
@@ -187,7 +189,7 @@ async def test_search_humidity(
         app.url_path_for("search_humidity"),
     )
     assert response.status_code == status.HTTP_200_OK
-    assert len(response.json()) >= 2
+    assert len(response.json()) >= MIN_EXPECTED_RESULTS
 
 
 @pytest.mark.asyncio(loop_scope="session")
@@ -197,7 +199,7 @@ async def test_search_humidity_with_limit(
 ) -> None:
     response = await client.get(
         app.url_path_for("search_humidity"),
-        params={"limit": 1}
+        params={"limit": 1},
     )
     assert response.status_code == status.HTTP_200_OK
     assert len(response.json()) <= 1

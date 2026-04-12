@@ -37,16 +37,20 @@ async def create_new_humidity(
 async def search_humidity(
     session: AsyncSession = Depends(deps.get_session),
     limit: int = Query(100, ge=1, le=1000),
-    start_date: datetime | None = Query(None, description="Filter readings from this date (ISO 8601)"),
-    end_date: datetime | None = Query(None, description="Filter readings until this date (ISO 8601)"),
+    start_date: datetime | None = Query(
+        None, description="Filter readings from this date (ISO 8601)"
+    ),
+    end_date: datetime | None = Query(
+        None, description="Filter readings until this date (ISO 8601)"
+    ),
 ) -> list[Humidity]:
     query = select(Humidity)
-    
+
     if start_date:
         query = query.where(Humidity.create_time >= start_date)
     if end_date:
         query = query.where(Humidity.create_time <= end_date)
-    
+
     query = query.order_by(Humidity.create_time.desc()).limit(limit)
     humidity_list = await session.scalars(query)
     return list(humidity_list.all())

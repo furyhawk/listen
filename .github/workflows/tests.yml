@@ -36,18 +36,21 @@ jobs:
         id: cached-uv-dependencies
         uses: actions/cache@v4
         with:
-          path: /opt/venv
-            path: .venv
-            key: venv-${{ runner.os }}-python-3.13.1-${{ hashFiles('pyproject.toml', 'uv.lock') }}
+          path: .venv
+          key: venv-${{ runner.os }}-python-3.13.1-${{ hashFiles('pyproject.toml', 'uv.lock') }}
 
-          - name: Install dependencies
+      - name: Install dependencies
         run: |
           uv sync --all-extras
 
       - name: Run tests
         env:
           SECURITY__JWT_SECRET_KEY: very-not-secret
+          SECURITY__BACKEND_CORS_ORIGINS: "[]"
+          SECURITY__ALLOWED_HOSTS: '["localhost", "127.0.0.1"]'
           DATABASE__HOSTNAME: localhost
+          DATABASE__USERNAME: postgres
           DATABASE__PASSWORD: postgres
+          DATABASE__DB: postgres
         run: |
           uv run pytest
