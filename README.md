@@ -38,7 +38,7 @@ _Check out online example: https://minimal-fastapi-postgres-template.rafsaf.pl, 
 - [x] Full [Alembic](https://alembic.sqlalchemy.org/en/latest/) migrations setup
 - [x] Refresh token endpoint (not only access like in official template)
 - [x] Ready to go Dockerfile with [uvicorn](https://www.uvicorn.org/) webserver as an example
-- [x] [Poetry](https://python-poetry.org/docs/), `mypy`, `pre-commit` hooks with [ruff](https://github.com/astral-sh/ruff)
+- [uv](https://docs.astral.sh/uv/), `mypy`, `pre-commit` hooks with [ruff](https://github.com/astral-sh/ruff)
 - [x] Perfect pytest asynchronous test setup with +40 tests and full coverage
 
 <br>
@@ -55,13 +55,13 @@ _Check out online example: https://minimal-fastapi-postgres-template.rafsaf.pl, 
 
 See [docs](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template).
 
-### 2. Install dependecies with [Poetry](https://python-poetry.org/docs/)
+### 2. Install dependecies with [uv](https://docs.astral.sh/uv/)
 
 ```bash
 cd your_project_name
 
-### Poetry install (python3.13)
-poetry install
+### uv install (python3.13)
+uv sync
 ```
 
 Note, be sure to use `python3.13` with this template with either poetry or standard venv & pip, if you need to stick to some earlier python version, you should adapt it yourself (remove new versions specific syntax for example `str | int` for python < 3.10)
