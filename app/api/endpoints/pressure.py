@@ -37,6 +37,7 @@ async def create_new_pressure(
 async def search_pressure(
     session: AsyncSession = Depends(deps.get_session),
     limit: int = Query(100, ge=1, le=1000),
+    offset: int = Query(0, ge=0),
     start_date: datetime | None = Query(
         None, description="Filter readings from this date (ISO 8601)"
     ),
@@ -51,6 +52,6 @@ async def search_pressure(
     if end_date:
         query = query.where(Pressure.create_time <= end_date)
 
-    query = query.order_by(Pressure.create_time.desc()).limit(limit)
+    query = query.order_by(Pressure.create_time.desc()).offset(offset).limit(limit)
     pressure_list: ScalarResult[Pressure] = await session.scalars(query)
     return list(pressure_list.all())

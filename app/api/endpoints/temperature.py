@@ -32,11 +32,12 @@ async def create_new_temperature(
     "/search",
     response_model=list[TemperatureResponse],
     status_code=status.HTTP_200_OK,
-    description="Search temperature readings with optional date range and limit.",
+    description="Search temperature readings with optional date range, limit, and offset pagination.",
 )
 async def search_temperature(
     session: AsyncSession = Depends(deps.get_session),
     limit: int = Query(100, ge=1, le=1000),
+    offset: int = Query(0, ge=0),
     start_date: datetime | None = Query(
         None, description="Filter readings from this date (ISO 8601)"
     ),
@@ -51,6 +52,6 @@ async def search_temperature(
     if end_date:
         query = query.where(Temperature.create_time <= end_date)
 
-    query = query.order_by(Temperature.create_time.desc()).limit(limit)
+    query = query.order_by(Temperature.create_time.desc()).offset(offset).limit(limit)
     temperature_list = await session.scalars(query)
     return list(temperature_list.all())
