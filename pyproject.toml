@@ -8,28 +8,28 @@ dependencies = [
     "alembic>=1.18.3,<2",
     "asyncpg>=0.31.0,<1",
     "bcrypt>=5.0.0,<6",
-    "fastapi>=0.128.0,<1",
-    "pydantic[email]>=2.12.5,<3",
-    "pydantic-settings>=2.12.0,<3",
+    "fastapi>=0.136.1,<1",
+    "pydantic[email]>=2.13.3,<3",
+    "pydantic-settings>=2.14.0,<3",
     "pyjwt>=2.11.0,<3",
-    "python-multipart>=0.0.22,<1",
+    "python-multipart>=0.0.27,<1",
     "sqlalchemy[asyncio]>=2.0.46,<3",
 ]
 
 [project.optional-dependencies]
 dev = [
-    "coverage>=7.13.2,<8",
+    "coverage>=7.13.5,<8",
     "freezegun>=1.5.5,<2",
-    "greenlet>=3.3.1,<4",
+    "greenlet>=3.5.0,<4",
     "httpx>=0.28.1,<1",
-    "mypy>=1.19.1,<2",
-    "pre-commit>=4.5.1,<5",
-    "pytest>=8.4.2,<9",
+    "mypy>=1.20.2,<2",
+    "pre-commit>=4.6.0,<5",
+    "pytest>=9.0.3,<10",
     "pytest-asyncio>=0.26.0,<1",
-    "pytest-cov>=7.0.0,<8",
+    "pytest-cov>=7.1.0,<8",
     "pytest-xdist>=3.8.0,<4",
-    "ruff>=0.14.14,<1",
-    "uvicorn[standard]>=0.40.0,<1",
+    "ruff>=0.15.12,<1",
+    "uvicorn[standard]>=0.46.0,<1",
 ]
 
 [build-system]
