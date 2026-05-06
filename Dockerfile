@@ -1,4 +1,4 @@
-FROM python:3.14.3-slim-bookworm as base
+FROM python:3.15.0a8-slim-bookworm as base
 
 ENV PYTHONUNBUFFERED 1
 WORKDIR /build
