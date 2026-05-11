@@ -4,11 +4,11 @@ from app.api import api_messages
 from app.api.endpoints import (
     auth,
     humidity,
+    iot,
     pets,
     pressure,
     temperature,
     users,
-    iot,
 )
 
 auth_router = APIRouter()

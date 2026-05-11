@@ -37,8 +37,9 @@ async def test_log_iot_readings_persists_multiple(client: AsyncClient, session: 
 
     response = await client.post(app.url_path_for("log_iot_readings"), json=payload)
     assert response.status_code == status.HTTP_201_CREATED
-    assert response.json()["logged_count"] == 3
+    expected_count = sum(len(d["readings"]) for d in payload["devices"])
+    assert response.json()["logged_count"] == expected_count
 
     rows = await session.scalars(select(IoTReading))
     all_readings = list(rows.all())
-    assert len(all_readings) >= 3
+    assert len(all_readings) >= expected_count

@@ -18,7 +18,7 @@ router = APIRouter()
 )
 async def log_iot_readings(
     data: IoTLogRequest, session: AsyncSession = Depends(deps.get_session)
-) -> dict:
+) -> dict[str, int]:
     total = 0
 
     for device in data.devices:
