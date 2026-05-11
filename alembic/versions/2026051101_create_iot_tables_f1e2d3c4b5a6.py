@@ -56,7 +56,9 @@ def upgrade() -> None:
             server_default=sa.text("now()"),
             nullable=False,
         ),
-        sa.ForeignKeyConstraint(["device_id"], ["iot_device.device_id"], ondelete="CASCADE"),
+        sa.ForeignKeyConstraint(
+            ["device_id"], ["iot_device.device_id"], ondelete="CASCADE"
+        ),
         sa.PrimaryKeyConstraint("id"),
     )
     # ### end Alembic commands ###

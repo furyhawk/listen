@@ -14,12 +14,20 @@ class FakeSession:
 
 
 @pytest.mark.asyncio
-async def test_get_current_user_raises_when_user_removed(monkeypatch: pytest.MonkeyPatch) -> None:
+async def test_get_current_user_raises_when_user_removed(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
     # make verify_jwt_token return an object with .sub
-    monkeypatch.setattr(deps, "verify_jwt_token", lambda token: types.SimpleNamespace(sub="non-existent"))
+    monkeypatch.setattr(
+        deps,
+        "verify_jwt_token",
+        lambda token: types.SimpleNamespace(sub="non-existent"),
+    )
 
     with pytest.raises(HTTPException) as excinfo:
-        await deps.get_current_user(token="ignored", session=cast(AsyncSession, FakeSession()))
+        await deps.get_current_user(
+            token="ignored", session=cast(AsyncSession, FakeSession())
+        )
 
     assert excinfo.value.status_code == status.HTTP_401_UNAUTHORIZED
     assert excinfo.value.detail == api_messages.JWT_ERROR_USER_REMOVED

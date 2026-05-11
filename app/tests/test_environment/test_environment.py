@@ -168,7 +168,6 @@ async def test_search_pressure_with_date_range(
     assert isinstance(response.json(), list)
 
 
-
 @pytest.mark.asyncio(loop_scope="session")
 async def test_create_new_humidity(client: AsyncClient) -> None:
     response = await client.post(
@@ -248,4 +247,3 @@ async def test_search_humidity_with_date_range(
     )
     assert response.status_code == status.HTTP_200_OK
     assert isinstance(response.json(), list)
-

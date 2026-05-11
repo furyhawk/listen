@@ -9,10 +9,15 @@ from app.models import IoTReading
 
 
 @pytest.mark.asyncio(loop_scope="session")
-async def test_log_iot_readings_single_device(client: AsyncClient, session: AsyncSession) -> None:
+async def test_log_iot_readings_single_device(
+    client: AsyncClient, session: AsyncSession
+) -> None:
     payload = {
         "devices": [
-            {"device_id": "dev-1", "readings": [{"sensor_type": "temperature", "value": "25.5"}]}
+            {
+                "device_id": "dev-1",
+                "readings": [{"sensor_type": "temperature", "value": "25.5"}],
+            }
         ]
     }
 
@@ -22,16 +27,22 @@ async def test_log_iot_readings_single_device(client: AsyncClient, session: Asyn
 
 
 @pytest.mark.asyncio(loop_scope="session")
-async def test_log_iot_readings_persists_multiple(client: AsyncClient, session: AsyncSession) -> None:
+async def test_log_iot_readings_persists_multiple(
+    client: AsyncClient, session: AsyncSession
+) -> None:
     payload = {
         "devices": [
-            {"device_id": "dev-2", "readings": [
-                {"sensor_type": "temperature", "value": "21.0"},
-                {"sensor_type": "humidity", "value": "60%"}
-            ]},
-            {"device_id": "dev-3", "readings": [
-                {"sensor_type": "pressure", "value": "1001"}
-            ]},
+            {
+                "device_id": "dev-2",
+                "readings": [
+                    {"sensor_type": "temperature", "value": "21.0"},
+                    {"sensor_type": "humidity", "value": "60%"},
+                ],
+            },
+            {
+                "device_id": "dev-3",
+                "readings": [{"sensor_type": "pressure", "value": "1001"}],
+            },
         ]
     }
 

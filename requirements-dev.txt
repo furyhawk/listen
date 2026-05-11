@@ -11,6 +11,7 @@ pytest-xdist
 ruff
 mypy
 pre-commit
+isort
 
 # HTTP client for tests
 httpx
