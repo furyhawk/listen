@@ -1,10 +1,11 @@
-[![Live example](https://img.shields.io/badge/live%20example-https%3A%2F%2Fminimal--fastapi--postgres--template.rafsaf.pl-blueviolet)](https://minimal-fastapi-postgres-template.rafsaf.pl/)
+[![Live example](https://img.shields.io/badge/Live%20example-https%3A%2F%2Fapi.furyhawk.lol-blue)](https://api.furyhawk.lol/)
 [![License](https://img.shields.io/github/license/rafsaf/minimal-fastapi-postgres-template)](https://github.com/rafsaf/minimal-fastapi-postgres-template/blob/main/LICENSE)
 [![Python 3.13](https://img.shields.io/badge/python-3.13-blue)](https://docs.python.org/3/whatsnew/3.13.html)
 [![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
 [![Tests](https://github.com/rafsaf/minimal-fastapi-postgres-template/actions/workflows/tests.yml/badge.svg)](https://github.com/rafsaf/minimal-fastapi-postgres-template/actions/workflows/tests.yml)
+[![type-check](https://github.com/furyhawk/listen/actions/workflows/type_check.yml/badge.svg)](https://github.com/furyhawk/listen/actions/workflows/type_check.yml)
 
-_Check out online example: https://minimal-fastapi-postgres-template.rafsaf.pl, it's 100% code used in template (docker image) with added my domain and https only._
+_Check out online example: https://api.furyhawk.lol/, it's 100% code used in template (docker image) with added my domain and https only._
 
 # Minimal async FastAPI + PostgreSQL template
 
@@ -12,7 +13,7 @@ _Check out online example: https://minimal-fastapi-postgres-template.rafsaf.pl, 
   - [Features](#features)
   - [Quickstart](#quickstart)
     - [1. Create repository from a template](#1-create-repository-from-a-template)
-    - [2. Install dependecies with Poetry](#2-install-dependecies-with-poetry)
+        - [2. Install dependecies with uv](#2-install-dependecies-with-uv)
     - [3. Setup database and migrations](#3-setup-database-and-migrations)
     - [4. Now you can run app](#4-now-you-can-run-app)
     - [5. Activate pre-commit](#5-activate-pre-commit)
@@ -38,7 +39,7 @@ _Check out online example: https://minimal-fastapi-postgres-template.rafsaf.pl, 
 - [x] Full [Alembic](https://alembic.sqlalchemy.org/en/latest/) migrations setup
 - [x] Refresh token endpoint (not only access like in official template)
 - [x] Ready to go Dockerfile with [uvicorn](https://www.uvicorn.org/) webserver as an example
-- [x] [Poetry](https://python-poetry.org/docs/), `mypy`, `pre-commit` hooks with [ruff](https://github.com/astral-sh/ruff)
+- [x] [uv](https://docs.astral.sh/uv/), `mypy`, `pre-commit` hooks with [ruff](https://github.com/astral-sh/ruff)
 - [x] Perfect pytest asynchronous test setup with +40 tests and full coverage
 
 <br>
@@ -55,16 +56,16 @@ _Check out online example: https://minimal-fastapi-postgres-template.rafsaf.pl, 
 
 See [docs](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template).
 
-### 2. Install dependecies with [Poetry](https://python-poetry.org/docs/)
+### 2. Install dependecies with [uv](https://docs.astral.sh/uv/)
 
 ```bash
 cd your_project_name
 
-### Poetry install (python3.13)
-poetry install
+### uv install (python3.13)
+uv sync
 ```
 
-Note, be sure to use `python3.13` with this template with either poetry or standard venv & pip, if you need to stick to some earlier python version, you should adapt it yourself (remove new versions specific syntax for example `str | int` for python < 3.10)
+Note, be sure to use `python3.13` with this template with either uv or a standard venv and pip setup. If you need to stick to an earlier Python version, adapt the project accordingly.
 
 ### 3. Setup database and migrations
 

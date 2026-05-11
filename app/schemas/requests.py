@@ -58,3 +58,19 @@ class MqttCreateRequest(BaseRequest):
 #     "id": "000617968C1EEAD9DB5B00000CFD0E24",
 #     "flags": {"retain": false, "dup": false},
 # }
+
+
+class SensorReading(BaseRequest):
+    sensor_type: str
+    value: str
+    timestamp: int | None = None
+
+
+class DeviceData(BaseRequest):
+    device_id: str
+    readings: list[SensorReading]
+
+
+class IoTLogRequest(BaseRequest):
+    devices: list[DeviceData]
+    received_at: int | None = None

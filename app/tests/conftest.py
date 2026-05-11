@@ -138,6 +138,6 @@ async def fixture_default_user(
     yield default_user
 
 
-@pytest_asyncio.fixture(name="default_user_headers", scope="function")
+@pytest.fixture(name="default_user_headers", scope="function")
 def fixture_default_user_headers(default_user: User) -> dict[str, str]:
     return {"Authorization": f"Bearer {default_user_access_token}"}

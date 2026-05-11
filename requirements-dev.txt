@@ -1,0 +1,23 @@
+# Development / test dependencies for local setup
+# Install with: `python -m pip install -r requirements-dev.txt`
+
+# Testing
+pytest
+pytest-asyncio
+pytest-cov
+pytest-xdist
+
+# Tools
+ruff
+mypy
+pre-commit
+isort
+
+# HTTP client for tests
+httpx
+
+# Coverage helper
+coverage
+
+# Uvicorn for local run
+uvicorn[standard]

@@ -1,19 +1,34 @@
-FROM python:3.13.3-slim-bookworm as base
+FROM python:3.14-slim-bookworm as base
 
 ENV PYTHONUNBUFFERED 1
 WORKDIR /build
 
 # Create requirements.txt file
-FROM base as poetry
-RUN pip install poetry==1.8.2
-COPY poetry.lock pyproject.toml ./
-RUN poetry export -o /requirements.txt --without-hashes
+FROM base as deps
+RUN pip install uv==0.4.26
+COPY pyproject.toml ./
+RUN uv pip compile pyproject.toml -o /requirements.txt
 
 FROM base as common
-COPY --from=poetry /requirements.txt .
+COPY --from=deps /requirements.txt .
 # Create venv, add it to path and install requirements
 RUN python -m venv /venv
 ENV PATH="/venv/bin:$PATH"
+RUN apt-get update \
+     && apt-get install -y --no-install-recommends \
+         curl \
+         build-essential \
+         libpq-dev \
+         libffi-dev \
+         python3-dev \
+        && rm -rf /var/lib/apt/lists/*
+
+# Ensure pip/setuptools/wheel and Rust toolchain helpers are up-to-date so
+# binary wheels are preferred and building from source can succeed when needed.
+# Upgrade pip and wheel tooling so prebuilt wheels are preferred
+RUN pip install --upgrade pip setuptools wheel
+
+# Install Python dependencies (will build wheels if prebuilt wheels are unavailable)
 RUN pip install -r requirements.txt
 
 # Install uvicorn server

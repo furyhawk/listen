@@ -1,7 +1,15 @@
 from fastapi import APIRouter
 
 from app.api import api_messages
-from app.api.endpoints import auth, humidity, pets, pressure, temperature, users
+from app.api.endpoints import (
+    auth,
+    humidity,
+    iot,
+    pets,
+    pressure,
+    temperature,
+    users,
+)
 
 auth_router = APIRouter()
 auth_router.include_router(auth.router, prefix="/auth", tags=["auth"])
@@ -38,3 +46,4 @@ api_router.include_router(pressure.router, prefix="/pressure", tags=["pressure"]
 api_router.include_router(
     temperature.router, prefix="/temperature", tags=["temperature"]
 )
+api_router.include_router(iot.router, prefix="/iot", tags=["iot"])
