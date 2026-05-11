@@ -147,6 +147,29 @@ async def test_search_pressure_with_limit(
 
 
 @pytest.mark.asyncio(loop_scope="session")
+async def test_search_pressure_with_date_range(
+    client: AsyncClient,
+    session: AsyncSession,
+) -> None:
+    now = datetime.utcnow()
+    start_date = (now - timedelta(days=1)).isoformat() + "Z"
+    end_date = (now + timedelta(days=1)).isoformat() + "Z"
+
+    # ensure at least one record exists in this range
+    pressure = Pressure(pressure="1002.0")
+    session.add(pressure)
+    await session.commit()
+
+    response = await client.get(
+        app.url_path_for("search_pressure"),
+        params={"start_date": start_date, "end_date": end_date},
+    )
+    assert response.status_code == status.HTTP_200_OK
+    assert isinstance(response.json(), list)
+
+
+
+@pytest.mark.asyncio(loop_scope="session")
 async def test_create_new_humidity(client: AsyncClient) -> None:
     response = await client.post(
         app.url_path_for("create_new_humidity"),
@@ -203,3 +226,26 @@ async def test_search_humidity_with_limit(
     )
     assert response.status_code == status.HTTP_200_OK
     assert len(response.json()) <= 1
+
+
+@pytest.mark.asyncio(loop_scope="session")
+async def test_search_humidity_with_date_range(
+    client: AsyncClient,
+    session: AsyncSession,
+) -> None:
+    now = datetime.utcnow()
+    start_date = (now - timedelta(days=1)).isoformat() + "Z"
+    end_date = (now + timedelta(days=1)).isoformat() + "Z"
+
+    # ensure at least one record exists in this range
+    humidity = Humidity(humidity="55.0")
+    session.add(humidity)
+    await session.commit()
+
+    response = await client.get(
+        app.url_path_for("search_humidity"),
+        params={"start_date": start_date, "end_date": end_date},
+    )
+    assert response.status_code == status.HTTP_200_OK
+    assert isinstance(response.json(), list)
+

@@ -3,5 +3,8 @@
         "app"
     ],
     "python.testing.unittestEnabled": false,
-    "python.testing.pytestEnabled": true
+    "python.testing.pytestEnabled": true,
+    "chat.tools.terminal.autoApprove": {
+        "pytest": true
+    }
 }
