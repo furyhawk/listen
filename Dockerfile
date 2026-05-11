@@ -21,8 +21,7 @@ RUN apt-get update \
          libpq-dev \
          libffi-dev \
          python3-dev \
-     && rm -rf /var/lib/apt/lists/*
-    && rm -rf /var/lib/apt/lists/*
+        && rm -rf /var/lib/apt/lists/*
 
 # Ensure pip/setuptools/wheel and Rust toolchain helpers are up-to-date so
 # binary wheels are preferred and building from source can succeed when needed.
