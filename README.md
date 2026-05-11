@@ -1,10 +1,11 @@
-[![Live example](https://img.shields.io/badge/live%20example-https%3A%2F%2Fminimal--fastapi--postgres--template.rafsaf.pl-blueviolet)](https://minimal-fastapi-postgres-template.rafsaf.pl/)
+[![Live example](https://img.shields.io/badge/Live%20example-https%3A%2F%2Fapi.furyhawk.lol-blue)](https://api.furyhawk.lol/)
 [![License](https://img.shields.io/github/license/rafsaf/minimal-fastapi-postgres-template)](https://github.com/rafsaf/minimal-fastapi-postgres-template/blob/main/LICENSE)
 [![Python 3.13](https://img.shields.io/badge/python-3.13-blue)](https://docs.python.org/3/whatsnew/3.13.html)
 [![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
 [![Tests](https://github.com/rafsaf/minimal-fastapi-postgres-template/actions/workflows/tests.yml/badge.svg)](https://github.com/rafsaf/minimal-fastapi-postgres-template/actions/workflows/tests.yml)
+[![type-check](https://github.com/furyhawk/listen/actions/workflows/type_check.yml/badge.svg)](https://github.com/furyhawk/listen/actions/workflows/type_check.yml)
 
-_Check out online example: https://minimal-fastapi-postgres-template.rafsaf.pl, it's 100% code used in template (docker image) with added my domain and https only._
+_Check out online example: https://api.furyhawk.lol/, it's 100% code used in template (docker image) with added my domain and https only._
 
 # Minimal async FastAPI + PostgreSQL template
 
