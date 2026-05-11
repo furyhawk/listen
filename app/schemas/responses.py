@@ -42,3 +42,15 @@ class PressureResponse(BaseResponse):
     id: int
     pressure: str
     update_time: datetime
+
+
+class IoTReadingResponse(BaseResponse):
+    id: int
+    device_id: str
+    sensor_type: str
+    value: str
+    update_time: datetime
+
+
+class IoTLogResponse(BaseResponse):
+    logged_count: int

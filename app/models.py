@@ -86,3 +86,24 @@ class Pressure(Base):
 
     id: Mapped[int] = mapped_column(BigInteger, primary_key=True)
     pressure: Mapped[str] = mapped_column(String(10), nullable=False)
+
+
+class IoTDevice(Base):
+    __tablename__ = "iot_device"
+
+    device_id: Mapped[str] = mapped_column(String(64), primary_key=True)
+    node: Mapped[str] = mapped_column(String(128), nullable=True)
+    readings: Mapped[list["IoTReading"]] = relationship(back_populates="device")
+
+
+class IoTReading(Base):
+    __tablename__ = "iot_reading"
+
+    id: Mapped[int] = mapped_column(BigInteger, primary_key=True)
+    device_id: Mapped[str] = mapped_column(
+        ForeignKey("iot_device.device_id", ondelete="CASCADE"), nullable=False
+    )
+    sensor_type: Mapped[str] = mapped_column(String(64), nullable=False)
+    value: Mapped[str] = mapped_column(String(128), nullable=False)
+    # reading_time is optional — use create_time from Base for recorded time
+    device: Mapped["IoTDevice"] = relationship(back_populates="readings")
